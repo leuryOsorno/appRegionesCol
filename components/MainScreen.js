@@ -1,22 +1,29 @@
-import { StatusBar } from 'expo-status-bar';
+import React ,{ useEffect,useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { Component, CmpLeury } from './components/Component';
-import { useState } from 'react';
+import { Icon } from 'react-native-elements';
+
+import { getColombiaInfo } from '../api/servicios'
 
 const MainScreen = ({ navigation }) => {
 
-    const [colombiaInfo, setcolombiaInfo] = useState({});
+    const [colombiaInfo, setcolombiaInfo] = useState([]);
 
-    useEfffect(() => {
+    useEffect(() => {
         async function fetchData() {
-            const colombiaData = await getColombiaInfor();
+            const colombiaData = await getColombiaInfo();
             setcolombiaInfo(colombiaData);
         }
         fetchData();
 
-        navigation
+        navigation.setOptions({
+            headerRight: () => {
+                return (
+                    <Icon name='rowing' onPress={navigation.navigate} />
+                )
+            }
+        });
 
-    })
+    },[])
 
     return (
         <View style={styles.container}>
@@ -37,4 +44,15 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    title: {
+        fontSize: 20,
+        fontVariant: 'bold',
+        marginVertical: 5,
+    },
+    text: {
+        fontSize: 16,
+        margin: 10
+    },
 });
+
+export default MainScreen

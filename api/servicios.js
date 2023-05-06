@@ -9,11 +9,11 @@ export const getColombiaInfo = async () => {
 
 export const getRegionesColombia = async () => {
     const response = await axios.get(`${API_URL}/Region`);
-    return response;
+    return response.data;
 }
 
 /* Buscar una region por id */
-export const getRegionColombia = async () => {
+export const getRegionColombia = async (id) => {
     const response = await axios.get(`${API_URL}/Region/${id}`);
-    return response;
+    return response.data;
 }
